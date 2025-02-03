@@ -17,33 +17,63 @@ A modern, powerful frontend stack combining React, Redux, Ant Design, and Tailwi
 - **TypeScript** - Type safety and better developer experience
 - **Vite** - Lightning fast build tool
 - **ESLint & Prettier** - Code quality and formatting
-- **Husky & lint-staged** - Git hooks for code quality
 - **Responsive Design** - Mobile-first approach
 - **Dark Mode Support** - Built-in theme switching
 - **Performance Optimized** - Best practices for optimal performance
 
 ## 🎯 Key Components Showcase
 
-### Interactive Progress Slider
+### App Page
 ```jsx
-import { ProgressSlider } from './components';
 
-// Dynamic progress bars with smooth animations
-<ProgressSlider 
-  items={15} 
-  minValue={40} 
-  maxValue={80} 
-  updateInterval={3000} 
-/>
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Suspense } from "react";
+import routes from "./routes";
+import MainLayout from "./layout/MainLayout";
+import ErrorBoundary from "./pages/ErrorBoundary";
+import Login from "./pages/Login";
+import PrivateRoute from "./auth/PrivateRoute";
+import { AuthProvider } from "./auth/AuthContext";
+import { Spin } from "antd";
+
+const App = () => (
+  <ErrorBoundary>
+    <Router>
+      <Suspense fallback={<Spin size="large"></Spin>}>
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            {routes.map(({ path, component: Component }, index) => (
+              <Route
+                key={index}
+                path={path}
+                element={
+                  <PrivateRoute>
+                    <MainLayout>
+                      <Component />
+                    </MainLayout>
+                  </PrivateRoute>
+                }
+              />
+            ))}
+          </Routes>
+        </AuthProvider>
+      </Suspense>
+    </Router>
+  </ErrorBoundary>
+);
+
+export default App;
+
 ```
 
 Features:
-- Horizontal scrollable interface
-- Custom eye-catching scrollbar
-- Random value generation (40-80%)
-- Smooth animations and transitions
-- Mouse wheel and drag navigation
-- Responsive design with Tailwind CSS
+- Full Application Error Boundary Handle
+- Suspense for heavy Component
+- Auth Provider
+- Dynamic Routes
+- Private Routes
+- Responsive design with Layout
 
 ## 🛠 Installation
 
@@ -66,31 +96,33 @@ npm run dev
 ```
 RRAT_Stack/
 ├── src/
-│   ├── components/        # Reusable components
-│   ├── features/         # Feature-based modules
-│   ├── store/           # Redux store configuration
-│   ├── styles/          # Global styles and Tailwind config
-│   ├── types/           # TypeScript type definitions
-│   └── utils/           # Utility functions
+│   ├── apiEndPoints/    # Reusable components
+│   ├── assets/          # assets files
+│   ├── auth/            # authentication
+│   ├── components/      # Reusable components
+│   ├── layout/          # Main Layout
+│   └── menuItems/       # Menus Items
+│   ├── pages/           # Route Page
+│   ├── routes/          # Route Define
+│   ├── serviecs/        # api services
+│   ├── utils/           # Utility functions
 ├── public/              # Static assets
-└── tests/              # Test files
+└── tests/               # Test files
 ```
 
 ## 🔧 Configuration
 
-### Tailwind CSS with Ant Design
+### Vite & Tailwind CSS 
 
 ```javascript
 // tailwind.config.js
-module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
-  important: true, // Required for compatibility with Ant Design
-  theme: {
-    extend: {
-      // Your custom theme extensions
-    }
-  }
-}
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
+});
+
 ```
 
 ### Redux Store Setup
@@ -177,4 +209,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Made with ❤️ by [Your Name]
+Made with ❤️ by [Prodip]
