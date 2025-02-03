@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import { config } from "./public/config";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -8,8 +9,11 @@ export default defineConfig({
   resolve: {
     extensions: [".js", ".jsx"],
   },
-  build:{
+  build: {
     outDir: "build",
   },
-  base: '/RRAT_Stack/', 
+  base:
+    config.ENVIRONMENT === "prod"
+      ? config.BASE_PATH_PROD
+      : config.BASE_PATH_DEV,
 });

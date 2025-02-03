@@ -1,5 +1,5 @@
 import { API_ENDPOINT } from "../apiEndPoints";
-import apiClient from "../auth/apiClient";
+import  apiClient  from "../lib/apiClient";
 
 const dashboardService = {
   getAnalysisData: (id) =>

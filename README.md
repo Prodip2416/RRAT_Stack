@@ -14,7 +14,6 @@ A modern, powerful frontend stack combining React, Redux, Ant Design, and Tailwi
 - **Redux Toolkit** - Modern state management with simplified setup
 - **Ant Design 5** - Enterprise-grade UI components
 - **Tailwind CSS 3** - Utility-first CSS framework
-<!-- - **TypeScript** - Type safety and better developer experience -->
 - **Vite** - Lightning fast build tool
 - **ESLint & Prettier** - Code quality and formatting
 - **Responsive Design** - Mobile-first approach
@@ -107,6 +106,7 @@ RRAT_Stack/
 │   ├── serviecs/        # api services
 │   ├── utils/           # Utility functions
 ├── public/              # Static assets
+|   ├── config           # Configuration for project environment and others
 └── tests/               # Test files
 ```
 
@@ -115,13 +115,22 @@ RRAT_Stack/
 ### Vite & Tailwind CSS 
 
 ```javascript
-// tailwind.config.js
+
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     extensions: [".js", ".jsx"],
   },
+  build: {
+    outDir: "build",
+  },
+  base:
+    config.ENVIRONMENT === "prod"
+      ? config.BASE_PATH_PROD
+      : config.BASE_PATH_DEV,
 });
+
 
 ```
 

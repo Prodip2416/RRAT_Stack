@@ -8,7 +8,13 @@ export default function MainHeader() {
   const [breadcrumbItems, setBreadcumbsItems] = useState([]);
 
   const getBreadcumbsData = () => {
-    const pathNames = window?.location?.pathname?.split("/").filter(Boolean);
+    let pathNames = window?.location?.pathname?.split("/").filter(Boolean);
+    if (pathNames.length === 0) {
+      pathNames = window?.location?.href
+        ?.split("#")[1]
+        ?.split("/")
+        ?.filter(Boolean);
+    }
     const breadcrumbItems = pathNames?.map((pathName) => ({
       title: pathName?.replace(/^\w/, (c) => c?.toUpperCase()),
     }));
@@ -17,7 +23,7 @@ export default function MainHeader() {
 
   useEffect(() => {
     getBreadcumbsData();
-  }, [window?.location?.pathname]);
+  }, [window?.location?.pathname?.href]);
 
   const handleLogout = () => {
     logout();
