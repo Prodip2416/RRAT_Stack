@@ -1,11 +1,10 @@
-import { DownOutlined } from "@ant-design/icons";
-import { Breadcrumb, Button, Dropdown, Layout, Menu } from "antd";
+import { Breadcrumb, Button, Dropdown, Layout, Menu, Switch } from "antd";
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 const { Header } = Layout;
 
 export default function MainHeader() {
-  const { logout } = useAuth();
+  const { logout, toggleTheme, isDarkMode } = useAuth();
   const [breadcrumbItems, setBreadcumbsItems] = useState([]);
 
   const getBreadcumbsData = () => {
@@ -46,11 +45,18 @@ export default function MainHeader() {
       }}
     >
       <Breadcrumb items={breadcrumbItems} />
-      <Dropdown overlay={menu} trigger={["hover"]}>
-        <Button type="link">
-          Welcome Admin <DownOutlined />
-        </Button>
-      </Dropdown>
+
+      <div>
+        <Switch
+          checkedChildren="Dark"
+          unCheckedChildren="Light"
+          defaultChecked={isDarkMode}
+          onClick={() => toggleTheme()}
+        />
+        <Dropdown overlay={menu} trigger={["hover"]}>
+          <Button type="link">Welcome Admin</Button>
+        </Dropdown>
+      </div>
     </Header>
   );
 }

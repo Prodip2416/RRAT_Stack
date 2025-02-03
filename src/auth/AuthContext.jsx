@@ -6,6 +6,11 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   const login = (values) => {
     // Implement your login logic here
@@ -18,10 +23,12 @@ export const AuthProvider = ({ children }) => {
     // Implement your logout logic here
     setIsAuthenticated(false);
   };
-  console.log(isAuthenticated);
-  console.log("qqqq");
+  // console.log(isAuthenticated);
+  // console.log("qqqq");
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, login, logout, isDarkMode, toggleTheme }}
+    >
       {children}
     </AuthContext.Provider>
   );

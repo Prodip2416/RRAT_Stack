@@ -2,11 +2,13 @@ import { Layout, Menu } from "antd";
 import { menuItems } from "../menuItems";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "../auth/AuthContext";
 
 const { Sider } = Layout;
 const MainSider = () => {
   const [items, setItems] = useState();
   const navigate = useNavigate();
+  const { isDarkMode } = useAuth();
 
   const filterMenuItemsByRole = (items, role) => {
     return items
@@ -55,7 +57,8 @@ const MainSider = () => {
       breakpoint="lg"
       collapsedWidth="80"
       style={{
-        background: "#001529",
+        background: isDarkMode ? "#001529" : "#fff", // Dark vs. light background
+        color: isDarkMode ? "white" : "#001529", // Dark vs. light text
       }}
     >
       <div
@@ -70,7 +73,7 @@ const MainSider = () => {
         SASS Dashboard
       </div>
       <Menu
-        theme="dark"
+        theme={isDarkMode ? "dark" : "lght"}
         mode="inline"
         defaultSelectedKeys={["1"]}
         items={items}

@@ -14,7 +14,7 @@ A modern, powerful frontend stack combining React, Redux, Ant Design, and Tailwi
 - **Redux Toolkit** - Modern state management with simplified setup
 - **Ant Design 5** - Enterprise-grade UI components
 - **Tailwind CSS 3** - Utility-first CSS framework
-- **TypeScript** - Type safety and better developer experience
+<!-- - **TypeScript** - Type safety and better developer experience -->
 - **Vite** - Lightning fast build tool
 - **ESLint & Prettier** - Code quality and formatting
 - **Responsive Design** - Mobile-first approach

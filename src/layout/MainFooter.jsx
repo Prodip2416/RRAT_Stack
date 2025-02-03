@@ -1,17 +1,19 @@
 import { Layout } from "antd";
+import { useAuth } from "../auth/AuthContext";
 
 const { Footer } = Layout;
 const MainFooter = () => {
+  const { isDarkMode } = useAuth();
   return (
     <Footer
       style={{
         textAlign: "center",
-        background: "#001529",
-        color: "white",
+        background: isDarkMode ? "#001529" : "#f0f2f5",
+        color: isDarkMode ? "white" : "#001529",
         padding: "20px 0",
       }}
     >
-      Dashboard with Analysis ©2025 Created by Aushomapto
+      @Boilerplate, REACT, REDUX, ANTD & TAILWINDCSS ©2025 Created by Prodip
     </Footer>
   );
 };
