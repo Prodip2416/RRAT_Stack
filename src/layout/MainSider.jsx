@@ -63,12 +63,15 @@ const MainSider = () => {
     >
       <div
         style={{
-          color: "white",
+          color: isDarkMode ? "white" : "black",
           textAlign: "center",
           padding: "16px",
           fontWeight: "bold",
           fontSize: "18px",
+          cursor: "pointer",
+          transition: "color 0.3s ease-in-out",
         }}
+        onClick={() => navigate("/dashboard/analysis")}
       >
         SASS Dashboard
       </div>
