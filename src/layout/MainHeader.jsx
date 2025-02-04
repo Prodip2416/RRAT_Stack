@@ -1,11 +1,13 @@
 import { Breadcrumb, Button, Dropdown, Layout, Menu, Switch } from "antd";
 import { useEffect, useState } from "react";
-import { useAuth } from "../auth/AuthContext";
+import { useDispatch } from "react-redux";
+import { toggleTheme } from "../features/ui/uiSlice";
+import { logout } from "../features/auth/authSlice";
 const { Header } = Layout;
 
 export default function MainHeader() {
-  const { logout, toggleTheme, isDarkMode } = useAuth();
   const [breadcrumbItems, setBreadcumbsItems] = useState([]);
+  const dispatch = useDispatch();
 
   const getBreadcumbsData = () => {
     let pathNames = window?.location?.pathname?.split("/").filter(Boolean);
@@ -26,7 +28,7 @@ export default function MainHeader() {
   }, [window?.location?.pathname?.href]);
 
   const handleLogout = () => {
-    logout();
+    dispatch(logout());
   };
 
   const menu = (
@@ -38,6 +40,10 @@ export default function MainHeader() {
       </Menu.Item>
     </Menu>
   );
+
+  const handleTheme = () => {
+    dispatch(toggleTheme());
+  };
 
   return (
     <Header
@@ -56,8 +62,8 @@ export default function MainHeader() {
         <Switch
           checkedChildren="Dark"
           unCheckedChildren="Light"
-          defaultChecked={isDarkMode}
-          onClick={() => toggleTheme()}
+          defaultChecked={true}
+          onClick={handleTheme}
         />
         <Dropdown overlay={menu} trigger={["hover"]}>
           <Button type="link">Welcome Admin</Button>

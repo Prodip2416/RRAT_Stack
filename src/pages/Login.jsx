@@ -1,18 +1,22 @@
 import { Form, Input, Button, Checkbox, Tabs, Typography, message } from "antd";
 import { LockOutlined } from "@ant-design/icons";
-import { useAuth } from "../auth/AuthContext";
+import { useDispatch } from "react-redux";
+import { login } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const { TabPane } = Tabs;
 const { Title, Text } = Typography;
 
 const Login = () => {
-  const { login } = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     if (values?.username === "admin" || values?.username === "user") {
       if (values?.password === "123456") {
-        login(values);
-      }else{
+        dispatch(login());
+        navigate("/dashboard/monitor");
+      } else {
         message.error("Please enter password: 123456");
       }
     } else {
