@@ -5,7 +5,6 @@ import MainLayout from "./layout/MainLayout";
 import ErrorBoundary from "./pages/ErrorBoundary";
 import Login from "./pages/Login";
 import PrivateRoute from "./auth/PrivateRoute";
-import { AuthProvider } from "./auth/AuthContext";
 import { Spin } from "antd";
 import { Provider } from "react-redux";
 import store from "./app/store";
@@ -15,24 +14,22 @@ const App = () => (
     <ErrorBoundary>
       <Router>
         <Suspense fallback={<Spin size="large"></Spin>}>
-          <AuthProvider>
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              {routes.map(({ path, component: Component }, index) => (
-                <Route
-                  key={index}
-                  path={path}
-                  element={
-                    <PrivateRoute>
-                      <MainLayout>
-                        <Component />
-                      </MainLayout>
-                    </PrivateRoute>
-                  }
-                />
-              ))}
-            </Routes>
-          </AuthProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            {routes.map(({ path, component: Component }, index) => (
+              <Route
+                key={index}
+                path={path}
+                element={
+                  <PrivateRoute>
+                    <MainLayout>
+                      <Component />
+                    </MainLayout>
+                  </PrivateRoute>
+                }
+              />
+            ))}
+          </Routes>
         </Suspense>
       </Router>
     </ErrorBoundary>

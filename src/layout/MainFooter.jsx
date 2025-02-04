@@ -1,9 +1,10 @@
 import { Layout } from "antd";
-import { useAuth } from "../auth/AuthContext";
+import { useSelector } from "react-redux";
 
 const { Footer } = Layout;
 const MainFooter = () => {
-  const { isDarkMode } = useAuth();
+  const { isDarkMode } = useSelector((state) => state.ui);
+
   return (
     <Footer
       style={{

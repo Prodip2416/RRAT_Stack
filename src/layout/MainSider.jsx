@@ -2,13 +2,13 @@ import { Layout, Menu } from "antd";
 import { menuItems } from "../menuItems";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAuth } from "../auth/AuthContext";
+import { useSelector } from "react-redux";
 
 const { Sider } = Layout;
 const MainSider = () => {
   const [items, setItems] = useState();
   const navigate = useNavigate();
-  const { isDarkMode } = useAuth();
+  const { isDarkMode } = useSelector((state) => state.ui);
 
   const filterMenuItemsByRole = (items, role) => {
     return items
@@ -76,7 +76,7 @@ const MainSider = () => {
         SASS Dashboard
       </div>
       <Menu
-        theme={isDarkMode ? "dark" : "lght"}
+        theme={isDarkMode ? "dark" : "light"}
         mode="inline"
         defaultSelectedKeys={["1"]}
         items={items}
