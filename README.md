@@ -1,4 +1,4 @@
-# RRAT Stack (React-Redux-Antd-Tailwind)
+# RRAT Stack (React-Redux-Antd & Tailwind)
 
 A modern, powerful frontend stack combining React, Redux, Ant Design, and Tailwind CSS for building scalable and beautiful web applications.
 
